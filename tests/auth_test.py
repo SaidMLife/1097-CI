@@ -1,18 +1,6 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+from pages.auth_page import AuthPage
 
-
-class AuthPage:
-    def init(self, driver):
-        self.driver = driver
-        self.login = (By.CSS_SELECTOR, "#app > div > div > div > div.log-in__container > div > div.log-in__newContent-right > div > div.log-in__newContent-right-block-wrap > form > div.log-in__newContent-right-block-center > div > label > input")
-        self.next_btn = (By.CSS_SELECTOR, "#app > div > div > div > div.log-in__container > div > div.log-in__newContent-right > div > div.log-in__newContent-right-block-wrap > form > div.log-in__newContent-right-block-bot > button")
-
-    def enter_phone_number(self, phone):
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.presence_of_element_located(self.login)).send_keys(phone)
-
-    def click_next_btn(self):
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.element_to_be_clickable(self.next_btn)).click()
+def test_login_success(driver_chrome):
+    auth_page = AuthPage(driver_chrome)
+    auth_page.enter_phone_number("998335814130")
+    auth_page.click_next_btn()
